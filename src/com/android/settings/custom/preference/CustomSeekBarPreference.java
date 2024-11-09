@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.dirtyunicorns.support.preferences;
+package com.android.settings.custom.preference;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -33,7 +33,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.preference.*;
 
-import com.dirtyunicorns.support.R;
+import com.android.settings.custom.R;
 
 public class CustomSeekBarPreference extends Preference implements SeekBar.OnSeekBarChangeListener {
     protected final String TAG = getClass().getName();
@@ -187,8 +187,8 @@ public class CustomSeekBarPreference extends Preference implements SeekBar.OnSee
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
                 .setView(editDialogView)
-                .setTitle(mContext.getString(R.string.seek_value_edit_label))
-                .setPositiveButton(R.string.ok,
+                .setTitle(mContext.getString(com.android.internal.R.string.screenshot_edit))
+                .setPositiveButton(android.R.string.ok,
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -199,7 +199,7 @@ public class CustomSeekBarPreference extends Preference implements SeekBar.OnSee
                             refresh(valueToSet);
                         }
                 });
-                builder.setNeutralButton(R.string.cancel,
+                builder.setNeutralButton(android.R.string.cancel,
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

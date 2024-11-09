@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dirtyunicorns.support.preferences;
+package com.android.settings.custom.preference;
 
 import android.content.Context;
 import androidx.preference.ListPreference;
@@ -58,12 +58,35 @@ public class SystemSettingListPreference extends ListPreference {
         super.setSummary(summary);
     }
 
+    public int getIntValue(int defValue) {
+        return getValue() == null ? defValue : Integer.valueOf(getValue());
+    }
+
+    private boolean isPersisted() {
+        return Settings.System.getString(getContext().getContentResolver(), getKey()) != null;
+    }
+
+    private String getString(String key, String defaultValue) {
+        String result = Settings.System.getString(getContext().getContentResolver(), key);
+        return result == null ? defaultValue : result;
+    }
+
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        // This is what default ListPreference implementation is doing without respecting
-        // real default value:
-        //setValue(restoreValue ? getPersistedString(mValue) : (String) defaultValue);
-        // Instead, we better do
-        setValue(restoreValue ? getPersistedString((String) defaultValue) : (String) defaultValue);
+    protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+        final String value;
+        if (!restorePersistedValue || !isPersisted()) {
+            if (defaultValue == null) {
+                return;
+            }
+            value = (String) defaultValue;
+            if (shouldPersist()) {
+                persistString(value);
+            }
+        } else {
+            // Note: the default is not used because to have got here
+            // isPersisted() must be true.
+            value = getString(getKey(), null /* not used */);
+        }
+        setValue(value);
     }
 }

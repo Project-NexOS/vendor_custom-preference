@@ -14,9 +14,9 @@
  * limitations under the License
  */
 
-package com.dirtyunicorns.support.preferences;
+package com.android.settings.custom.preference;
 
-import com.dirtyunicorns.support.R;
+import com.android.settings.custom.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;
